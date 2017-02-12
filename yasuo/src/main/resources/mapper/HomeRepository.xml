@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sample.test.HomeRepository">
+	<select id="selectTodo" resultType="map">
+		SELECT 
+			nm,
+			todo_list as todoList 
+		FROM TODO
+		WHERE 1=1
+		<if test="nm != null and nm != ''">
+			AND nm = ${nm}
+		</if>
+	</select>
+	<insert id="insertTodo" parameterType="map">
+		INSERT INTO TODO 
+		VALUES (${nm},#{todoList})
+	</insert>
+	<update id="updateTodo" parameterType="map">
+		UPDATE TODO
+		SET todo_list = #{todoList}
+		WHERE nm = ${nm}
+	</update>
+	<delete id="deleteTodo" parameterType="int">
+		DELETE FROM TODO
+		WHERE nm = ${nm};
+	</delete>
+	<select id="selectAllTodo" resultType="map">
+		SELECT 
+			nm,
+			todo_list as todoList 
+		FROM TODO
+	</select>
+</mapper>
